@@ -1,0 +1,22 @@
+vector<vector<int>> mergeIntervals(vector<vector<int>> &intervals)
+{
+    vector<int>v;
+    sort(intervals.begin(),intervals.end());
+    v.push_back(intervals[0][0]);
+    v.push_back(intervals[0][1]);
+    vector<vector<int>>ans;
+    for(int i=1;i<intervals.size();i++)
+    {
+        if(intervals[i][0]<=v[1])
+        {
+            v[1]=max(v[1],intervals[i][1]);
+        }
+        else
+        {
+            ans.push_back(v);
+            v=intervals[i];
+        }
+    }
+    ans.push_back(v);
+    return ans;
+}
