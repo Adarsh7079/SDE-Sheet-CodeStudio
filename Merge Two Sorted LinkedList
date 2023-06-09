@@ -1,0 +1,39 @@
+Node<int>* sortTwoLists(Node<int>* first, Node<int>* second)
+{
+   Node<int>* p3=NULL; 
+   Node<int>* p1=first;
+   Node<int>* p2=second;
+   Node<int>* add=new Node<int>(-1);
+   p3=add;
+   while(p1!=NULL && p2!=NULL)
+   {
+       if((p1->data)<=(p2->data))
+       {
+           p3->next=p1; 
+           p3=p1;
+           p1=p1->next;
+       }
+       else
+       {
+           p3->next=p2;
+           p3=p2;
+           p2=p2->next;
+       }
+   }
+   while(p1)
+   {
+       p3->next=p1; 
+       p3=p1;
+       p1=p1->next; 
+   }
+   while(p2)
+   {
+        p3->next=p2;
+        p3=p2;
+        p2=p2->next;
+   }
+   Node<int>*head=add->next;
+   add->next=NULL;
+   delete add;
+   return head;
+}
