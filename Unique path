@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+int solve(int m,int n,int i,int j)
+{
+	if(i==m-1 && j==n)
+	{
+		return 1;
+	}
+	if(i>=m || j>=n)
+	{
+		return 0;
+	}
+	int op1=solve(m,n,i+1,j);
+	int op2=solve(m,n,i,j+1);
+	return op1+op2;
+} 
+int memo(int m,int n,int i,int j,vector<vector<int>>&dp)
+{
+	if(i==m-1 && j==n-1)
+	{
+		return 1;
+	}
+	if(i>=m || j>=n)
+	{
+		return 0;
+	}
+	if(dp[i][j]!=-1)
+	{
+		return dp[i][j];
+	}
+	int op1=memo(m,n,i+1,j,dp);
+	int op2=memo(m,n,i,j+1,dp);
+	return dp[i][j]=op1+op2;
+} 
+
+int buttom(int m,int n,vector<vector<int>>&dp)
+{
+	for(int i=0;i<m;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			if(i==0 && j==0)
+			{
+				dp[i][j]=1;
+			}
+			else
+			{
+				int op1=0;;
+				int op2=0;
+				if(i>0)
+				{
+					op1=dp[i-1][j];
+				}
+					if (j > 0) {
+						op2 = dp[i][j - 1];
+					}
+					dp[i][j] = op1 + op2;
+            }
+		}
+    }
+    return dp[m-1][n-1];
+}
+int uniquePaths(int m, int n) {
+	// vector<vector<int>>dp(m,vector<int>(n,-1));
+	// return solve(m,n,0,0);
+	// return memo(m,n,0,0,dp);
+	vector<vector<int>>dp(m,vector<int>(n,1));
+	return buttom(m,n,dp);
+}
