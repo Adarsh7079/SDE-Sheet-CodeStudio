@@ -1,0 +1,23 @@
+Node *firstNode(Node *head)
+{
+    Node* h1=head;
+    Node* h2=head;
+    while(h2!=NULL && h2->next!=NULL)
+    {
+        h1=h1->next;
+        h2=h2->next->next;
+        if(h1==h2)
+        {
+            h2=head;
+            while(h1!=h2)
+            {
+                h1=h1->next;
+                h2=h2->next;
+            }
+            return h1;   
+        }
+       
+
+    }
+    return NULL;
+}
