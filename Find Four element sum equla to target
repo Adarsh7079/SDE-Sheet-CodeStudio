@@ -1,0 +1,36 @@
+string fourSum(vector<int> arr, int target, int n) {
+   sort(arr.begin(),arr.end());
+   int i=0,j=n-1,k=0,l=0;
+
+   //pahle dekh lo array ka size 4 se chota ho to false return kar do 
+   if(n<4)
+   {
+       return "No";
+   }
+   
+   for(int i=0;i<n;i++)
+   {
+       for(int j=i+1;j<n;j++)
+       {
+           int newsum=target-arr[i]-arr[j];
+           int l=j+1;
+           int r=n-1;
+           while(l<r)
+           {
+               if(arr[l]+arr[r]==newsum)
+               {
+                   return "Yes";
+               }
+               else if(arr[l]+arr[r]>newsum)
+               {
+                   r--;
+               }
+               else
+               {
+                   l++;
+               }
+           }
+       }
+   }
+   return "No";
+}
