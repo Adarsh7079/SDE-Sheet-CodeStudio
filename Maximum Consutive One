@@ -1,0 +1,47 @@
+deque<int>q;
+
+    int j = 0 , cnt = 0;
+
+ 
+
+    while(j < n){
+
+ 
+
+        q.push_back(arr[j]);
+
+        if(k != 0){
+
+          if (arr[j] == 0) {
+
+            k--;
+
+          }
+
+        }
+
+        else {
+
+            if(arr[j] == 0){
+
+                while(q.front() != 0){
+
+                    q.pop_front();
+
+                }
+
+                q.pop_front();
+
+            }
+
+        }
+
+        j++;
+
+        int sz =  q.size();
+
+        cnt = max(cnt , sz);
+
+    }
+
+    return cnt;
