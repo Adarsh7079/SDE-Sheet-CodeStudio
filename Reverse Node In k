@@ -1,0 +1,63 @@
+
+int cnt(Node* head)
+{
+	Node* curr=head;
+	int cnt=0;
+	while(curr)
+	{
+		cnt++;
+		curr=curr->next;
+	}
+	return cnt;
+}
+Node* reverse(Node* head)
+{
+	Node* curr=head;
+	Node* prev=NULL;
+	Node* forwad=NULL;
+	while(curr)
+	{
+		forwad=curr->next;
+		curr->next=prev;
+		prev=curr;
+		curr=forwad;
+	}
+	return prev;
+}
+
+Node *getListAfterReverseOperation(Node *head, int n, int b[]){
+	Node *dummy = new Node(0);
+  dummy->next = head;
+
+  Node *p = dummy, *curr, *nxt;
+
+  int len = cnt(head);
+  for (int i = 0; i < n; i++) {
+    if (len == 0)
+      break;
+
+    if (b[i] <= len) {
+      curr = p->next;
+      nxt = curr->next;
+
+      if (b[i] == 0)
+        continue;
+
+      for (int j = 0; j < b[i] - 1; j++) {
+        curr->next = nxt->next;
+        nxt->next = p->next;
+
+        p->next = nxt;
+        nxt = curr->next;
+      }
+
+      len -= b[i];
+      p = curr;
+    } else if (len <= b[i]) {
+      p->next = reverse(p->next);
+      len = 0;
+    }
+  }
+
+  return dummy->next;
+}
