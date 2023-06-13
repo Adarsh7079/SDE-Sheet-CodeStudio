@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+
+// void find(int ind,int target,vector<int> &arr,vector<vector<int>>&ans,vector<int> &ds){
+//     if(target == 0){
+//         ans.push_back(ds);
+//         return;
+//     }
+//     for(int i=ind;i<arr.size();i++){
+//         if(i>ind && arr[i] == arr[i-1])continue;
+//         if(arr[i]>target)break;
+//         ds.push_back(arr[i]);
+//         find(i+1,target - arr[i],arr,ans,ds);
+//         ds.pop_back();
+//     }
+// }
+void solve(int i,vector<int>&arr,vector<int>temp,set<vector<int>>&ans,int t)
+{
+	
+	if(i==arr.size())
+	{
+		int sum=0;
+		for(int i=0;i<temp.size();i++)
+		{
+			sum+=temp[i];
+		}
+		if(sum==t)
+		{
+			sort(temp.begin(),temp.end());
+            ans.insert(temp);
+        }
+		return ;
+	}
+	temp.push_back(arr[i]);
+	solve(i+1,arr,temp,ans,t);
+	temp.pop_back();
+	solve(i+1,arr,temp,ans,t);
+
+
+
+}
+vector<vector<int>> combinationSum2(vector<int> &arr, int n, int target)
+{
+    // sort(arr.begin(),arr.end());
+    // vector<vector<int>>ans;
+    // vector<int>ds;
+    // find(0,target,arr,ans,ds);
+    // return ans;
+	set<vector<int>>s;
+	vector<int>temp;
+	solve(0,arr,temp,s,target);
+	vector<vector<int>>ans;
+	for(auto i:s)
+	{
+		ans.push_back(i);
+	}
+	sort(ans.begin(),ans.end());
+	return ans;
+}
