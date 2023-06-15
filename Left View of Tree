@@ -1,0 +1,17 @@
+void printleft(node* root,int level,vector<int> &v)
+{
+	if(root==NULL)
+		return;
+	if(v.size()==level)
+	{
+		v.push_back(root->data);
+	}
+	printleft(root->left, level + 1, v);
+	printleft(root->right, level + 1, v);
+}
+vector<int>leftview(node* root)
+{
+	vector<int> res;
+	printleft(root, 0, res);
+	return res;
+}
