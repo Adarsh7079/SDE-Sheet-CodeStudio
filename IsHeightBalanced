@@ -1,0 +1,22 @@
+int height(BinaryTreeNode<int>* root)
+{
+    if(root==NULL)
+    {
+        return 0;
+    }
+    return 1+max(height(root->left),height(root->right));
+}
+bool isBalancedBT(BinaryTreeNode<int>* root) {
+    if(root==NULL)
+    {
+        return true;
+    }
+    int h1=height(root->left);
+    int h2=height(root->right);
+
+    if(abs(h1-h2)>1)
+    {
+        return false;
+    }
+    return (isBalancedBT(root->left)&&isBalancedBT(root->right));
+}
