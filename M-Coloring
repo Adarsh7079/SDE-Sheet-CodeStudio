@@ -1,0 +1,46 @@
+#include <bits/stdc++.h> 
+
+bool ispossible(int node,int col[],vector<vector<int>>mat,int n,int val)
+{
+    for(int k=0;k<n;k++)
+    {
+        if(k!=node && mat[k][node]==1 && col[k]==val)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+bool colorgraph(int node,int col[],int m,int n,vector<vector<int>>&mat)
+{
+    if(node==n)
+    {
+        return true;
+    }
+    for(int k=1;k<=m;k++)
+    {
+        if(ispossible(node,col,mat,n,k))
+        {
+            col[node]=k;
+            if(colorgraph(node+1,col,m,n,mat))
+            {
+                return true;
+            }
+            else
+            {
+                col[node]=0;
+            }
+        }
+    }
+    return false;
+}
+
+string graphColoring(vector<vector<int>> &mat, int m) {
+    int n=mat.size();
+    int col[n]={0};
+    if(colorgraph(0,col,m,n,mat))
+    {
+        return "YES";
+    }
+    return "NO";
+}
