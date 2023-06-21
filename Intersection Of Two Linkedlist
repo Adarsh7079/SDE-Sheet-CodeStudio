@@ -1,0 +1,21 @@
+
+Node* findIntersection(Node *firstHead, Node *secondHead)
+{
+   Node*first=firstHead;
+   Node* second=secondHead;
+    unordered_set<Node *>s;
+   while(first)
+   {
+       s.insert(first);
+       first=first->next;
+   }
+   while(second)
+   {
+       if(s.find(second)!=s.end())
+       {
+           return second;
+       }
+       second=second->next;
+   }
+   return NULL;
+}
