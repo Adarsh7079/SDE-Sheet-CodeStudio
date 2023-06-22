@@ -1,0 +1,54 @@
+ #include<bits/stdc++.h>
+ vector<int>nsl(vector<int>&arr)
+ {
+   int n=arr.size();
+   stack<int>s;
+   s.push(-1);
+   vector<int>ans(n);
+   for(int i=n-1;i>=0;i--)
+   {
+     //jb tak bada hai array of top se pop krte jao  
+     while(s.top()!=-1 && arr[s.top()]>=arr[i])
+     {
+       s.pop();
+     }
+     ans[i]=s.top();
+     s.push(i);
+   }
+   return ans;
+ }
+vector<int>psl(vector<int>&arr)
+ {
+   int n=arr.size();
+   stack<int>s;
+   s.push(-1);
+   vector<int>ans(n);
+   for(int i=0;i<n;i++)
+   {
+     //jb tak bada hai array of top se pop krte jao  
+     while(s.top()!=-1 && arr[s.top()]>=arr[i])
+     {
+       s.pop();
+     }
+     ans[i]=s.top();
+     s.push(i);
+   }
+   return ans;
+ }
+ int largestRectangle(vector < int > & heights) {
+   int n=heights.size();
+   vector<int>next=nsl(heights);
+   vector<int>prev=psl(heights);
+   int area=INT_MIN;
+   for(int i=0;i<n;i++)
+   {
+     int l=heights[i];
+     if(next[i]==-1)
+     {
+       next[i]=n;
+     }
+     int b=next[i]-prev[i]-1;
+     area=max(area,(b*l));
+   }
+   return area;
+ }
