@@ -1,0 +1,29 @@
+int search(vector<int>in,int s,int e,int ele)
+{
+    for(int i=s;i<=e;i++)
+    {
+        if(in[i]==ele)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+TreeNode<int> * constructfroposteorder(vector<int>preorder,vector<int>inorder,int &preindex,int instart,int inend)
+{
+    if(preindex>=preorder.size()||instart>inend)
+    {
+        return NULL;
+    }
+    int preelement=preorder[preindex++];
+    TreeNode<int> * root=new TreeNode<int> (preelement);
+    int findindex=search(inorder,instart,inend,preelement);
+    root->left=constructfroposteorder(preorder,inorder,preindex,instart,findindex-1);
+    root->right=constructfroposteorder(preorder,inorder,preindex,findindex+1,inend);
+    return root;
+}
+TreeNode<int> *buildBinaryTree(vector<int> &inorder, vector<int> &preorder)
+{
+    int ind=0;
+    return constructfroposteorder(preorder,inorder,ind,0,preorder.size()-1);
+}
